@@ -1,0 +1,65 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'ancestries/style.css' %}">
+<h1>{{ name }}</h1>
+<table>
+    <tr>
+        <td>
+            <b>Hit Points:</b>
+            {{ hit_points }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Size:</b>
+            {{ size }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Speed:</b>
+            {{ speed }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Ability Boosts:</b>
+            <ul>
+                {% for boost in ability_boosts %}
+                <li>{{ boost }}</li>
+                {% endfor %}  
+            </ul>
+        </td>
+    </tr>
+    {% if ability_flaw %}
+    <tr>
+        <td>
+            <b>Ability Flaw:</b>
+            {{ ability_flaw }}
+        </td>
+    </tr>
+    {% endif %}
+    <tr>
+        <td>
+            <b>Languages:</b>
+            <ul>
+                {% for language in languages %}
+                <li>{{ language }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% for key, value in extra_mechanics.items %}
+    <tr>
+        <td>
+            <b>{{ key }}:</b>
+            {{ value }}
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>
+            <b>Source:</b>
+            {{ source }}
+        </td>
+    </tr>
+</table>

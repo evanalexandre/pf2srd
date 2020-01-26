@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ancestries</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'ancestries/style.css' %}"/>
+    </head>
+    <body>
+        <div id="list">
+            <ul>
+                {% for ancestry in ancestries %}
+                {% if ancestry.active %}
+                <li><a class="active" href="{% url 'detail' ancestry.name %}">{{ ancestry.name }}</a></li>
+                {% else %}
+                <li><a href="{% url 'detail' ancestry.name %}">{{ ancestry.name }}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="main">
+            {% for ancestry in ancestries %}
+            {% if ancestry.active %}
+            <article>
+                <h2 class="major">{{ ancestry.name }}</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <b>Hit Points:</b>
+                            {{ ancestry.hit_points }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Size:</b>
+                            {{ ancestry.size }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Speed:</b>
+                            {{ ancestry.speed }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Ability Boosts:</b>
+                            <ul>
+                                {% for boost in ancestry.ability_boosts %}
+                                <li>{{ boost }}</li>
+                                {% endfor %}  
+                            </ul>
+                        </td>
+                    </tr>
+                    {% if ancestry.ability_flaw %}
+                    <tr>
+                        <td>
+                            <b>Ability Flaw:</b>
+                            {{ ancestry.ability_flaw }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>
+                            <b>Languages:</b>
+                            <ul>
+                                {% for language in ancestry.languages %}
+                                <li>{{ language }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    {% for key, value in ancestry.extra_mechanics.items %}
+                    <tr>
+                        <td>
+                            <b>{{ key }}:</b>
+                            {{ value }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>
+                            <b>Source:</b>
+                            {{ ancestry.source }}
+                        </td>
+                    </tr>
+                </table>
+            </article>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </body>
+</html>
